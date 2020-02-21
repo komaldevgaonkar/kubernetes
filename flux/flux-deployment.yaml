@@ -118,12 +118,12 @@ spec:
         - --ssh-keygen-dir=/var/fluxd/keygen
 
         # Replace or remove the following URL.
-        - --git-url=git@github.com:mistsys/mistk8s.git
+        - --git-url=
         - --git-branch=master
         # include this if you want to restrict the manifests considered by flux
         # to those under the following relative paths in the git repository
         - --git-path=staging/
-        - --k8s-allow-namespace=location
+        - --k8s-allow-namespace=
 
         # Include these two to enable git commit signing
         # - --git-gpg-key-import=/root/gpg-import
