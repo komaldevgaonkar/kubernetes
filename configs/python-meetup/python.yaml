@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -10,7 +11,6 @@ spec:
     port: 8000
     targetPort: 8000
   type: ClusterIP
-
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
       - name: hello-python
-        image: gcr.io/meetup-268512/meetup/python:v0.0.3
+        image: gcr.io/meetup-268512/meetup/python:v0.0.4
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8000
