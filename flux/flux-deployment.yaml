@@ -63,7 +63,7 @@ spec:
         # There are no ":latest" images for flux. Find the most recent
         # release or image version at https://hub.docker.com/r/weaveworks/flux/tags
         # and replace the tag here.
-        image: docker.io/weaveworks/flux:1.12.3
+        image: "fluxcd/flux:1.15.0"
         imagePullPolicy: IfNotPresent
         resources:
           requests:
@@ -118,12 +118,19 @@ spec:
         - --ssh-keygen-dir=/var/fluxd/keygen
 
         # Replace or remove the following URL.
-        - --git-url=
+        - --git-url=git@github.com:komaldevgaonkar/kubernetes.git
         - --git-branch=master
         # include this if you want to restrict the manifests considered by flux
         # to those under the following relative paths in the git repository
-        - --git-path=staging/
-        - --k8s-allow-namespace=
+        - --git-path=configs/
+        - --k8s-secret-name=flux-git-deploy
+        - --git-poll-interval=5m
+        - --registry-poll-interval=5m
+        - --registry-rps=200
+        - --registry-burst=125
+        - --registry-trace=false
+        - --registry-exclude-image=[k8s.gcr.io/* index.docker.io/* docker.io/* quay.io/*]
+        - --registry-use-labels=[*]
 
         # Include these two to enable git commit signing
         # - --git-gpg-key-import=/root/gpg-import

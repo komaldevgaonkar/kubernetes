@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-python-service
+spec:
+  selector:
+    app: hello-python
+  ports:
+  - protocol: "TCP"
+    port: 8000
+    targetPort: 8000
+  type: ClusterIP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-python
+spec:
+  selector:
+    matchLabels:
+      app: hello-python
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: hello-python
+    spec:
+      containers:
+      - name: hello-python
+        image: gcr.io/meetup-268512/meetup/python:v0.0.3
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8000
+---
+
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  generation: 1
+  labels:
+    app: hello-python
+  name: hello-python
+  namespace: python
+spec:
+  rules:
+  - host: meetup.example.com
+    http:
+      paths:
+      - backend:
+          serviceName: hello-python-service
+          servicePort: 8000
+        path: /
