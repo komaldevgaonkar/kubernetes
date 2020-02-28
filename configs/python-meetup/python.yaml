@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: hello-python
-        image: gcr.io/meetup-268512/meetup/python:v0.0.4
+        image: gcr.io/meetup-268512/meetup/python:v0.0.5
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8000
